@@ -31,18 +31,56 @@ elements = WebDriverWait(driver, 10).until(
     EC.presence_of_all_elements_located((By.CLASS_NAME, "fc-timeline-event-harness"))
 )
 
-# Accesses third last timeslot (8:30pm)
-elements[-3].click()
+# Accesses 6:30 pm timeslot
+elements[-7].click()
 element = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.ID, "bookingend_1"))
+    EC.presence_of_element_located((By.CLASS_NAME, "input-group"))
 )
 element.click()
 
 # Chooses selection box option and clicks on the last option
 options = element.find_elements(By.TAG_NAME, "option")
-options[-1].click()
+# options[-1].click()
+# change index to -1 on final version, only selects 30 minutes for now
+options[0].click()
 
+# Submits the time slot and length selected
+submit = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.NAME, "submit_times"))
+)
+submit.click()
 
+# Clicks button to accept library terms & conditions
+submitTerms = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.ID, "terms_accept"))
+)
+submitTerms.click()
+
+# Types first name into text box
+firstNameBox = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.NAME, "fname"))
+)
+firstNameBox.send_keys("Patrick")
+
+# Types last name into text box
+lastNameBox = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.NAME, "lname"))
+)
+lastNameBox.send_keys("Wu")
+
+# Types email into text box
+emailBox = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.NAME, "email"))
+)
+emailBox.send_keys("patrickwu4@cmail.carleton.ca")
+
+# Final submit, completes booking
+# finalSubmit = WebDriverWait(driver, 10).until (
+#     EC.presence_of_element_located((By.ID, "btn-form-submit"))
+# )
+# finalSubmit.click()
+
+# Exits the tab
 time.sleep(10)
 
 driver.quit()
