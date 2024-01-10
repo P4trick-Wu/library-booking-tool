@@ -23,8 +23,25 @@ def bookAllRooms(emailList):
     timeSlots = getTimeSlots(driver)
 
     # Books all rooms
-    bookRoom(driver, timeSlots, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 1)
-    # bookRoom(driver, timeSlots, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 2)
+    # bookRoom(driver, timeSlots, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 2)
+    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 5)
+
+    driver.get("https://carletonu.libcal.com/space/26977")
+
+    # Confirms exiting the page
+    alert = driver.switch_to.alert
+    alert.accept()
+
+    element = driver.find_element(By.CLASS_NAME, "fc-next-button")
+
+    # Change number in for loop to 7 when in proper use
+    for i in range(4):
+        time.sleep(1)
+
+        element.click()
+
+    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 6)
+
     # bookRoom(
     #     driver,
     #     timeSlots,
@@ -40,21 +57,23 @@ def bookAllRooms(emailList):
 
 
 # Books one room for maximum time (up to 3 hours) using a single email
-def bookRoom(driver, timeSlots, email, fName, lName, slotNum):
+def bookRoom(driver, email, fName, lName, slotNum):
     print("Booking a room")
 
     # findDate(driver)
 
     # Accesses time slot, accept terms and fill in necessary info
+    timeSlots = getTimeSlots(driver)
     timeSlots[slotNum].click()
+
     selectTime(driver)
     fillInfo(driver, email, fName, lName)
 
     # Final submit to complete booking
-    # finalSubmit = WebDriverWait(driver, 10).until(
-    #     EC.presence_of_element_located((By.ID, "btn-form-submit"))
-    # )
-    # finalSubmit.click()
+    finalSubmit = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "btn-form-submit"))
+    )
+    finalSubmit.click()
 
 
 # Fills in first name, last name and email into form
@@ -114,6 +133,8 @@ def findDate(driver):
 
     # Change number in for loop to 7 when in proper use
     for i in range(4):
+        time.sleep(1)
+
         element.click()
 
 
