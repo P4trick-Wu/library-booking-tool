@@ -28,18 +28,18 @@ def bookAllRooms(emailList):
 
     # Books from 8:30am to 8:30pm
 
-    bookRoom(driver, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 1)
+    # bookRoom(driver, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 1)
 
-    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 7)
+    # bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 7)
 
-    bookRoom(
-        driver,
-        "durvishanthananchaya@cmail.carleton.ca",
-        "Durvishan",
-        "Thananchayan",
-        13,
-    )
-    bookRoom(driver, "huzaifarehan@cmail.carleton.ca", "Huzaifa", "Rehan", 19)
+    # bookRoom(
+    #     driver,
+    #     "durvishanthananchaya@cmail.carleton.ca",
+    #     "Durvishan",
+    #     "Thananchayan",
+    #     13,
+    # )
+    # bookRoom(driver, "huzaifarehan@cmail.carleton.ca", "Huzaifa", "Rehan", 19)
 
     # Send info to Jason's website
     sendWebsiteInfo(driver)
@@ -60,15 +60,15 @@ def sendWebsiteInfo(driver):
     roomName.send_keys("234C")
 
     # Sends booking date
-    date = WebDriverWait(driver, 20).until(
+    dateBox = WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.ID, "date"))
     )
 
     # Gets current date and adds 7 days
     bookingDate = date.today()
-    bookingDate += timedelta(days=7)
+    bookingDate += timedelta(days=8)
 
-    date.send_keys(str(bookingDate))
+    dateBox.send_keys(str(bookingDate))
 
     # Submits data
     submitButton = WebDriverWait(driver, 20).until(
@@ -136,8 +136,8 @@ def selectTime(driver):
     timeLengths = selectionBox.find_elements(By.TAG_NAME, "option")
 
     # Timelengths index should be set to -1 for longest possible time
-    timeLengths[-1].click()
-    # timeLengths[0].click()
+    # timeLengths[-1].click()
+    timeLengths[0].click()
 
     # Submits time slot and length selected
     submit = WebDriverWait(driver, 10).until(
@@ -158,7 +158,7 @@ def findDate(driver):
     element = driver.find_element(By.CLASS_NAME, "fc-next-button")
 
     # Change number in for loop to 7 when in proper use
-    for i in range(7):
+    for i in range(4):
         element.click()
 
 
