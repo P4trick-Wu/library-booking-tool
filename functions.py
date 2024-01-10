@@ -19,26 +19,8 @@ def bookAllRooms(emailList):
         options=options,
     )
 
-    findDate(driver)
-    timeSlots = getTimeSlots(driver)
-
     # Books all rooms
     # bookRoom(driver, timeSlots, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 2)
-    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 5)
-
-    driver.get("https://carletonu.libcal.com/space/26977")
-
-    # Confirms exiting the page
-    alert = driver.switch_to.alert
-    alert.accept()
-
-    element = driver.find_element(By.CLASS_NAME, "fc-next-button")
-
-    # Change number in for loop to 7 when in proper use
-    for i in range(4):
-        time.sleep(1)
-
-        element.click()
 
     bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 6)
 
@@ -60,7 +42,7 @@ def bookAllRooms(emailList):
 def bookRoom(driver, email, fName, lName, slotNum):
     print("Booking a room")
 
-    # findDate(driver)
+    findDate(driver)
 
     # Accesses time slot, accept terms and fill in necessary info
     timeSlots = getTimeSlots(driver)
@@ -133,8 +115,6 @@ def findDate(driver):
 
     # Change number in for loop to 7 when in proper use
     for i in range(4):
-        time.sleep(1)
-
         element.click()
 
 
