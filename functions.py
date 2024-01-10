@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from datetime import date, timedelta
 import time
 
 
@@ -20,22 +21,60 @@ def bookAllRooms(emailList):
     )
 
     # Books all rooms
-    # bookRoom(driver, timeSlots, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 2)
 
-    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 6)
+    # bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 8)
+    # bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 9)
+    # bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 10)
 
-    # bookRoom(
-    #     driver,
-    #     timeSlots,
-    #     "durvishanthananchaya@cmail.carleton.ca",
-    #     "Durvishan",
-    #     "Thananchayan",
-    #     3,
-    # )
-    # bookRoom(driver, timeSlots, "huzaifarehan@cmail.carleton.ca", "Huzaifa", "Rehan", 4)
+    # Books from 8:30am to 8:30pm
+
+    bookRoom(driver, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 1)
+
+    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 7)
+
+    bookRoom(
+        driver,
+        "durvishanthananchaya@cmail.carleton.ca",
+        "Durvishan",
+        "Thananchayan",
+        13,
+    )
+    bookRoom(driver, "huzaifarehan@cmail.carleton.ca", "Huzaifa", "Rehan", 19)
+
+    # Send info to Jason's website
+    sendWebsiteInfo(driver)
 
     time.sleep(10)
     driver.quit()
+
+
+def sendWebsiteInfo(driver):
+    print("Sending info to Jason's website:")
+
+    driver.get("https://bookings.jasonwangg.me/")
+
+    # Sends name of the room
+    roomName = WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.ID, "roomName"))
+    )
+    roomName.send_keys("234C")
+
+    # Sends booking date
+    date = WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.ID, "date"))
+    )
+
+    # Gets current date and adds 7 days
+    bookingDate = date.today()
+    bookingDate += timedelta(days=7)
+
+    date.send_keys(str(bookingDate))
+
+    # Submits data
+    submitButton = WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.TAG_NAME, "button"))
+    )
+    submitButton.click()
 
 
 # Books one room for maximum time (up to 3 hours) using a single email
@@ -49,6 +88,7 @@ def bookRoom(driver, email, fName, lName, slotNum):
     timeSlots[slotNum].click()
 
     selectTime(driver)
+
     fillInfo(driver, email, fName, lName)
 
     # Final submit to complete booking
@@ -57,10 +97,14 @@ def bookRoom(driver, email, fName, lName, slotNum):
     )
     finalSubmit.click()
 
+    time.sleep(1)
+
+    print(" Final submit complete")
+
 
 # Fills in first name, last name and email into form
 def fillInfo(driver, email, fName, lName):
-    print("Filling information")
+    print(" Filling information")
 
     # Types first name into text box
     firstNameBox = WebDriverWait(driver, 10).until(
@@ -92,8 +136,8 @@ def selectTime(driver):
     timeLengths = selectionBox.find_elements(By.TAG_NAME, "option")
 
     # Timelengths index should be set to -1 for longest possible time
-    # timeLengths[-1].click()
-    timeLengths[0].click()
+    timeLengths[-1].click()
+    # timeLengths[0].click()
 
     # Submits time slot and length selected
     submit = WebDriverWait(driver, 10).until(
@@ -114,7 +158,7 @@ def findDate(driver):
     element = driver.find_element(By.CLASS_NAME, "fc-next-button")
 
     # Change number in for loop to 7 when in proper use
-    for i in range(4):
+    for i in range(7):
         element.click()
 
 
