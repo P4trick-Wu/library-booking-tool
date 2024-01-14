@@ -172,3 +172,9 @@ def getTimeSlots(driver):
     )
 
     return elements
+
+# returns the time the user wants to execute the program
+
+def getUserTime():
+    userTime = input("Enter time in 24 hour format (HH:MM): ")
+    return userTime
