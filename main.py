@@ -17,7 +17,4 @@ while currentTime != userTime:
     currentTime = datetime.now().time()
     currentTime = currentTime.strftime("%H:%M")
 
-# Emails used for booking
-emails = ["jasonwang9", "durvishanthananchaya", "patrickwu4", "huzaifarehan"]
-# bookAllRooms(emails)
-print("Running script")
+bookAllRooms()

@@ -9,7 +9,7 @@ import time
 
 
 # Books all the rooms using emails provided in emailList
-def bookAllRooms(emailList):
+def bookAllRooms():
     print("Booking rooms")
 
     # Set up chrome driver and open chrome, prevents cannot read tbsCertificate issue
@@ -26,20 +26,20 @@ def bookAllRooms(emailList):
     # bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 9)
     # bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 10)
 
-    # Books from 8:30am to 8:30pm
+    # Books from 8:30am to 8:30pm (1, 7, 13, 19)
 
     bookRoom(driver, "jasonwang9@cmail.carleton.ca", "Jason", "Wang", 1)
 
-    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 7)
+    bookRoom(driver, "patrickwu4@cmail.carleton.ca", "Patrick", "Wu", 13)
 
     bookRoom(
         driver,
         "durvishanthananchaya@cmail.carleton.ca",
         "Durvishan",
         "Thananchayan",
-        13,
+        19,
     )
-    bookRoom(driver, "huzaifarehan@cmail.carleton.ca", "Huzaifa", "Rehan", 19)
+    bookRoom(driver, "huzaifarehan@cmail.carleton.ca", "Huzaifa", "Rehan", 7)
 
     # Send info to Jason's website
     sendWebsiteInfo(driver)
